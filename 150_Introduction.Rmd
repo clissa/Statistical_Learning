@@ -1,4 +1,4 @@
-##<a name="1_Introduzione" style="pointer-events: none; cursor: default;" ><font color="red"> 1. Introduzione </font></a>
+##<a name="1_Introduction" style="pointer-events: none; cursor: default;" ><font color="red"> 1. Introduction </font></a>
 
 
 This report presents a statistical analysis of the wine quality dataset released by the Portuguese firm Vinho Verde. The aim is to classify sample qualities based on their physical-chemical properties.
