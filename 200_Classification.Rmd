@@ -1,6 +1,8 @@
-##<a name="2_Classificazione" style="pointer-events: none; cursor: default;" ><font color="red"> 2. Classificazione</font></a>
+##<a name="2_Classification" style="pointer-events: none; cursor: default;" ><font color="red"> 2. Classification</font></a>
 
 
-In questa sezione sono presentati e messi a confronto vari modelli di classificazione con lo scopo di individuare quello con le migliori performance di previsione fuori campione. Le variabili consideate sono i 12 regressori contenuti nei due file di input più la variabile *type* derivante dall'unione dei due dataset e che assume valore 1 per i vini bianchi e 0 per quelli rossi. La variabile di output è anch'essa una lavorazione della variabile originaria *quality* ottenuta assegnando valore 0 ai vini di scarsa qualità (<=5) e 1 altrimenti.
+In this section we experiment the use of different models for the classification task, and then we compare the results to pick the one that has better out of sample predictions.
+The input variables considered in the following are the 12 physical-chemical features plus the variable *type*, with value 1 for white wines and 0 for reds. The target variable is the binary version of *quality*.
 
-In prima approssimazione abbiamo preso in considerazione la classe dei *metodi lineari di classificazione*, i.e. modelli che producono una funzione discriminante (o una sua trasformazione monotona) lineare per ciascuna modalità della variabile di output. In alternativa, sono presentati anche Quadratic Discriminant Analysis (QDA), k-Nearest Neighbors (kNN) e Generalized Additive Models (GAM).
+As first attempt, we explore the class of *linear methods*, i.e. models that separate each class of the output based on a linear function (or some monotonic transformation).
+Alternatively, Quadratic Discriminant Analysis (QDA), k-Nearest Neighbours (kNN) e Generalised Additive Models (GAM) in the final part.
