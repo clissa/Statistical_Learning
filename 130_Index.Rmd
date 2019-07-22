@@ -1,8 +1,8 @@
-##<a name="Indice" style="pointer-events: none; cursor: default;" ><font color="black" ><font color="black">Indice</font></font></a>
+##<a name="Index" style="pointer-events: none; cursor: default;" ><font color="black" ><font color="black">Index</font></font></a>
 
-<a href="#1_Introduzione" ><font color="black">1. Introduzione</font></a>
+<a href="#1_Introduction" ><font color="black">1. Introduction</font></a>
 
-<a href="#2_Classificazione" ><font color="black" ><font color="black">2. Classificazione</font></a>
+<a href="#2_Classification" ><font color="black" ><font color="black">2. Classification</font></a>
   
 <a href="#21_LPM" ><font color="black" ><font color="black"> &nbsp; &nbsp; 2.1. Linear Probability Model</font></a>
 
@@ -10,12 +10,12 @@
 
 <a href="#23_QDA" ><font color="black"> &nbsp; &nbsp;  2.3. Quadratic Discriminant Analysis</font></a>
 
-<a href="#24_LOGISTIC_REGRESSION" ><font color="black"> &nbsp; &nbsp;  2.4. Regressione logistica</font></a>
+<a href="#24_LOGISTIC_REGRESSION" ><font color="black"> &nbsp; &nbsp;  2.4. Logistic Regression</font></a>
 
 <a href="#25_REGULARISED_METHODS" ><font color="black"> &nbsp; &nbsp;  2.5. Regularised Methods</font></a>
 
 <a href="#26_KNN" ><font color="black">&nbsp; &nbsp;  2.6.  K Nearest Neighbor</font></a>
 
-<a href="#27_GAM" ><font color="black">&nbsp; &nbsp;  2.7. Generalize Additive Model</font></a>
+<a href="#27_GAM" ><font color="black">&nbsp; &nbsp;  2.7. Generalised Additive Model</font></a>
 
-<a href="#3_Conclusioni" ><font color="black"> 3. Conclusioni</font></a>
+<a href="#3_Conclusion" ><font color="black"> 3. Conclusion</font></a>
