@@ -1,17 +1,19 @@
 ##<a name="21_LPM" style="pointer-events: none; cursor: default;" ><font color="red"> 2.1. Linear Probabity Model</font></a>
 
-Il modello di regressione si inserisce nel contesto dei metodi di classificazione che si basano sulla definizione di una funzione descriminante, $\delta_k(x)$, dalla quale poi viene derivata l'appartenenza di una osservazione ad una particolare classe. In particolare, la soluzione proposta da questa tecnica è quella di scegliere come funzione discriminante $E[Y|X]$ che, data la natura dicotomica del problema (i.e. una osservazione o appartiene o non appartiene ad una data modalità), equivale alla probabilità di appartenenza ad una generica classe g, $P(Y=g|X)$.
+The regression model defines the linear discriminant function, $\delta(x)$, as the expected value of the target conditioning on the observed data, $E[Y|X]$. In case of a dichotomous outcome, this is equivalent to estimating the probability for an observation to belong to category 1, $P(Y=1|X)$, hence the name linear probability model.
+However $E[Y|X]$ is by construction a real number, so it lends poorly in estimating a quantity that lies between 0 and 1. Nonetheless, it is possible to show that the sum of the probabilities to belong to every single class is 1.
 
-In generale, immaginando di avere un problema di classificazione multinomiale (G modalità), questo approccio consiste nell'adottare un modello di regressione lineare in cui la variabile risposta **Y** è una matrice di variabili indicatrici, ciascuna avente valore 1 se l'osservazione appartiene alla relativa modalità della variabile di output e 0 altrimenti.
-Nel caso specifico di una classificazione binaria, possiamo tuttavia adattare un solo modello al dataset di training ed utilizzarlo per calcolare uno score che servirà poi per classificare ciascuna osservazione in base ad un dato treshold (da determinare). Si noti che lo score calcolato sarà per costruzione un numero reale e, quindi, malgrado lo si utilizzi per modellare la probabilità di appartenenza ad una classe - di qui il nome Linear Probability Model (LPM) -, non è possibile interpretarlo come una probabilità. Tuttavia, è possibile dimostrare che sommando gli score di una singola osservazione ottenuti dai modelli relativi a ciascuna modalità il risultato è 1. Infatti:
+To see why this is true, consider the general case of a multinomial classification problem (G categories) based on *p* regressors.
+Then, the LPM approach consists of adopting G binary regression models simultaneously, one per each class. The issue then resolves to estimating the probability of belonging to each category and classifying the observation as the class which returns the highest response.
+In matricial form:
 
 $$\hat{Y}_{n x G} = X_{n x (p+1)} * ({X}^{T} X)_{(p+1) x (p+1)}^{-1} * {X}_{(p+1) x n}^{T} * Y_{n x G}$$
 
-Post-moltiplicando poi per un vettore colonna G-dimensionale formato da soli 1, possiamo sommare gli elementi di $\hat{Y}$:
+Post-multiplying by a G-dimensional column vector of ones we can then sum the elements of $\hat{Y}$:
 
 $$\hat{Y}_{n x G} * 1_{G x 1} = X_{n x (p+1)} * ({X}^{T} X)_{(p+1) x (p+1)}^{-1} * {X}_{(p+1) x n}^{T} * Y_{n x G} * 1_{G x 1}$$
 
-A questo punto, pre-moltiplicando a destra per la matrice identità di ordine $n$ ottenuta come $(X {X}^{T})^{-1}(X {X}^{T})$, è facile verificare che l'equazione precedente si riduce semplicemente a:
+Now, pre-multiplying the identity matrix of order $n$ written as $(X {X}^{T})^{-1}(X {X}^{T})$, it is easy to verify that the previous equation resolves to:
 
 $$(X {X}^{T})^{-1}(X {X}^{T}) * X_{n x (p+1)} * ({X}^{T} X)_{(p+1) x (p+1)}^{-1} * {X}_{(p+1) x n}^{T} * Y_{n x G} * 1_{G x 1}$$
 
@@ -21,15 +23,15 @@ $$[(X {X}^{T})^{-1}X * {X}_{(p+1) x n}^{T}] * Y_{n x G} * 1_{G x 1}$$
 
 $$\hat{Y}_{n x G} * 1_{G x 1} = Y_{n x G} * 1_{G x 1}$$
 
-Per cui si ricava che la somma degli score predetti è 1 per ciascuna osservazioni dal momento che le funzioni indicatrici (RHS) vale $\hat{Y_1}+ ... + \hat{Y_G} = 1$ per costruzione.
+Hence the sum of the predicted scores is 1 for all the observations. In fact, $\hat{Y_1}+ ... + \hat{Y_G} = 1$ by construction.
 
-Per cui, malgrado gli score non siano probabilità, sono accomunate ad esse da questa proprietà.
+For this reason, although it is not possible to interpret the predicted scores as probabilities, they share this property.
 
-Passando all'applicazione, abbiamo fittato il modello utilizzando tutti i regressori disponibili:
+Passing to the application, we adopted such model considering all of the initial regressor.
 
 **codice modello**
 
-Come anticipato, lo score predetto dal modello non è in generale compreso tra 0 e 1, come si evince dal seguente grafico.
+Of course, the predicted scores are not guaranteed to lie between 0 and 1, as anticipated:
 
 ```{r, fig.width=10, fig.height=4, echo=FALSE}
 file = "results/MODELING/CLASSIFICATION/lpm_probs.Rdata"
@@ -37,7 +39,7 @@ load( file )
 plot
 ```
 
-Per poter classificare le osservazioni in una delle due classi è necessario poi fissare un taglio sul valore predetto dal modello che funga da separatore delle due classi. La scelta di questa soglia non è tuttavia così intuitiva come in altri modelli, proprio perchè l'outcome non è vincolato all'intervallo $[0,1]$. Per questa ragione, la scelta del treshold ottimale è stata fatta sulla base di una ricerca a griglia in modo da minimizzare l'errore di classificazione nel **da verificare** set:
+Once a score has been obtained, it is the necessary to fix a cutoff so to classify each observation into one of the two categories. This choice is not that obvious, as the outcome of the model is not bounded in $[0,1]$. For this reason, the choice of the optimal threshold is don based on a grid search so to minimise the misclassification error.
 
 **qui va inserita la parte di ottimizzazione treshold**
 
