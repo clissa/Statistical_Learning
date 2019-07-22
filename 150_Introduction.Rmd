@@ -1,8 +1,9 @@
 ##<a name="1_Introduzione" style="pointer-events: none; cursor: default;" ><font color="red"> 1. Introduzione </font></a>
 
 
-Lo scopo di questo report è portare avanti un'analisi di classificazione a partire dai dati riguardanti alcune caratteristiche fisico-chimiche dei vini dell'azienda portoghese Vinho Verde. I dati a disposizione riguardando in particolare due tipologie di vino (rosso e bianco) ai quali corrispondono due differenti dataset che verranno uniti in un unico set di dati che comprenderà un totale di 6497 unità statistiche. 
-L'obiettivo dell'analisi è quello di classificare la qualità del vino che nei dati di partenza è rappresentata da una variabile categorica ordinabile con modalità che vanno da 3 a 9. 
+This report presents a statistical analysis of the wine quality dataset released by the Portuguese firm Vinho Verde. The aim is to classify sample qualities based on their physical-chemical properties.
+In particular, the dataset is composed of eleven variables plus the wine typology, red or white, for a total of 6497 statistical units. 
+The final goal is to predict the wine quality, expressed as an ordinal categorical variable in the range from 1 to 10.
 
 
 
@@ -12,7 +13,8 @@ load( file )
 quality_distr
 ```
 
-E' possibile notare come le modalità 5 e 6 siano le più numerose e che da sole caratterizzino il 76,6% del totale delle unità statistiche, per questo motivo, per ottenere classi bilanciate, viene generata una nuova variabile target a partire dalla variabile Quality definita come segue:
+As we can see, the categories 5 and 6 are the most numerous and they alone account for the 76.6% of the whole sample.  This may be a problem when training since the model could learn to predict just the most represented classes.
+For this reason, we try to balance the target variable by considering a binary version obtained as follows: 
 
 $$ \begin{equation}
   \textit{binary_quality} = 
@@ -22,7 +24,7 @@ $$ \begin{equation}
 \end{equation}$$
 
 
-Per ogni tipologia di vino sono disponibili le seguenti caratteristiche fisico-chimiche:
+The pysical-chemical information available are contained in the following variables:
 
 * Acidità fissa 
 * Acidità volatile
@@ -36,7 +38,7 @@ Per ogni tipologia di vino sono disponibili le seguenti caratteristiche fisico-c
 * Solfati
 * Alcol
 
-di cui si riportano in forma aggregata le densità:
+As first insight, we may have a look at the variable's distributions:
 
 ```{r, fig.width=10, fig.height=4, echo=FALSE}
 file = "results/EXPLORATORY_ANALYSES/variables_density.Rdata"
@@ -58,11 +60,10 @@ multi_p = multiplot(p1, p2, p3, p4, p5, p6, p7, p8, p9, cols = 3 )
 
 
 ```
-inserire commenti delle differenze tra rosso e bianco
 
-Sebbene la correlazione non dica nulla sul possibile collegamento causa-effetto delle variabili considerate, può comunque essere utile in ottica esplorativa, indagare la correlazione tra la variabile Quality e i predittori.
+Although correlation does not mean causation, it makes sense to explore the dependency structure between the target variable and each of the predictors.
 
-Si riporta la matrice di correlazione calcolate considerando l'intero dataset:
+For this purpose, the correlation matrix computed on the whole dataset is reported below:
 
 ```{r, fig.width=10, fig.height=4, echo=FALSE}
 file = "results/EXPLORATORY_ANALYSES/corrplot.Rdata"
@@ -70,14 +71,14 @@ load( file )
 corrplot
 ```
 
-La variabile quality (nella sua forma originale) è molto poco correlata con i diversi predittori, solo in 2 casi si ottiene un coefficiente di correlazione lineare maggiore di 0.3 (alcol, density).
-Alcuni predittori risultano molto correlati tra di loro, in particolare i valori più alti (in valore assoluto) che è possibile osservare nella matrice di correlazione sono:
+The original quality (in its original format) is very poorly correlated with the predictors, and just in two cases we observe a linear correlation coefficient above 0.3 (alcohol and density).
+On the other hand,  predictors appear highly linked to one another. In particular, the strongest relationships we can observe are:
 
-* Anidride solforosa libera - Anidride solforosa totale (0.72)
-* Density-alcol (-0.687)
-* density - zuccheri residui (0.553)
+* Free Solphur Dioxide - Total Solphur Dioxide (0.72)
+* Density- Alcohol (-0.687)
+* Density - Residual Sugar (0.553)
 
-Considerando la natura della variabile Quality è opportuno valutare la correlazione tra la variabile Quality e  le diverse variabili esplicative considerando il coefficiente di Spearman piuttosto che il coefficiente di Pearson:
+However, given the categorical nature of the variable Quality, would be more appropriate to study its correlation structure based on the Spearman coefficient rather than the Pearson one:
 
 ```{r, fig.width=10, fig.height=4, echo=FALSE}
 file = "results/EXPLORATORY_ANALYSES/corr_Y.Rdata"
@@ -85,14 +86,14 @@ load( file )
 corr_Y
 ```
 
-Il coefficiente di correlazione di Spearman misura il grado di relazione tra due variabili per le quali non si fa altra ipotesi della misura ordinale, ma possibilmente continua.
-Diversamente dal coefficiente di correlazione lineare di Pearson, non misura una relazione lineare anche qualora vengano usate misure intervallari.
+The Spearman coefficient, $\rho$, measures the degree of relation between two ordinal categorical variables.
+Unlike the Pearson coefficient, Spearman $\rho$ assumes just a monotonic relationship between the variables (not necessarily a linear one).
 
 
 
-Per maggiori informazioni sui dati è possibile consultare il sito
+For more details on the dataset check:
 https://www.kaggle.com/c/uci-wine-quality-dataset
 
 
-Entrambi gli approcci sono stati condotti sfruttando una divisione dei dati in training (60%) e test (40%) set.
+The analyses presented in the following are conducted considering about 60% of the data as training set and the remaining 40% for testing.
 
