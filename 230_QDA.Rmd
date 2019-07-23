@@ -1,5 +1,5 @@
 ##<a name="23_QDA" style="pointer-events: none; cursor: default;" ><font color="red"> 2.3. Quadratic Discriminant Analysis</font></a>
 
-Se facciamo cadere l'assunzione di omoschedasticità dei gruppi, l'approccio di analisi discriminante produce un funzione discriminante quadratica e, di conseguenza, anche la superficie di separazione non sarà più lineare.
+If we drop the assumption of homoscedasticity of the groups, a discriminant analysis approach produce a discriminant function which is quadratic and, in turn, also the separation surface is no longer linear.
 
 **risultati**
