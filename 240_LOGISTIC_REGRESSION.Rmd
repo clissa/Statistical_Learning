@@ -1,10 +1,11 @@
-##<a name="24_LOGISTIC_REGRESSION" style="pointer-events: none; cursor: default;" ><font color="red"> 2.4. Regressione Logistica</font></a>
+##<a name="24_LOGISTIC_REGRESSION" style="pointer-events: none; cursor: default;" ><font color="red"> 2.4. Logistic Regression</font></a>
 
 
-La regressione logistica è uno dei principali metodi utilizzati per problemi di classificazione che consente di effettuare la stima che l’evento interessato si realizzi (Y=1) per poi effettuare una classificazione delle osservazioni basata sul valore di probabilità stimata.
+The logistic regression is one of the most popular methods adopted for classification problems. The advantage of this model is that it allows estimating the probability of the event of interest directly.
+Once this is achieved, the classification is simply derived based on that probability value.
 
-La stima della probabilità avviene sfruttando la funzione di ripartizione logistica tale che: 
+More specifically, the estimates are obtained exploiting the logistic distribution:
 
 $$P(Y=1|X=x)=\frac{\exp{(\beta_0+\beta^Tx)}}{1+\exp{(\beta_0+\beta^Tx)}}$$
 
-Applicando questo modello al nostro caso, i risultati ottenuti sono in linea con quelli osservati nei modelli precedenti anche se presentano delle performance leggermente inferiori avendo un’accuracy pari a 0.7388 e quindi un test error di 0.26117. Lo stesso discorso vale per i valori associati all’AUC che risulta leggermente inferiore agli altri con un valore di 0.8088. Osservando invece i valori di stima dei parametri, essi risultano tutti altamente significativi con unica eccezione per la variabile chlorides.
+The results of the application to our problem are in line with previous models so far. Performances are slightly worse, with an accuracy of 0.7388 and a test error of 0.2612. The same applies to the AUC (0.8088). The coefficients estimates are all highly significant though, except for the variable chlorides.
