@@ -37,6 +37,6 @@ file = "results/MODELING/CLASSIFICATION/lda_line_1_vs_0.Rdata"
 load( file )
 plot
 ```
-Notice that the two classes does not appear very separated. Probably, the quite decent performances of the model are due to the fact that the dataset is unbalanced and that the model correctly classifies the most represented categories. i.e. observations of class 1.
+Notice that the two classes do not appear very separated. Probably, the quite decent performances of the model are because the dataset is unbalanced and that the model correctly classifies the most represented categories. i.e. observations of class 1.
 
 **verifica che le due formulazioni siano uguali**
