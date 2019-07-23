@@ -1,8 +1,11 @@
-##<a name="26_KNN" style="pointer-events: none; cursor: default;" ><font color="red"> 2.6. k Nearest Neighbor</font></a>
+##<a name="26_KNN" style="pointer-events: none; cursor: default;" ><font color="red"> 2.6. k Nearest Neighbour</font></a>
 
 
-Il K-Nearest Neighbour è un algoritmo di classificazione privo di parametri che si basa sul raggruppamento per classi in base al calcolo della distanza euclidea tra le osservazioni e sull’uso del “voto di maggioranza” per la classificazione. Nel caso preso in esame abbiamo fatto uso della 10-fold cross validation per la selezione del valore di K che definisce la dimensione del neighbourhood delle osservazioni. 
-I valori sono stati tutti standardizzati in modo da evitare problemi dovuti a dimensioni di scala e la CV ci ha permesso di individuare un K ottimale pari a 23. I valori di accuracy sono in linea con gli altri finora ottenuti, tuttavia il KNN si posiziona al primo posto con un valore di 0.7572 e un’AUC di 0.8192.
+The K-Nearest Neighbour is a classification algorithm with no parameters but K. The key principles it is based on are the euclidean distance between observations and the "majority vote" for classification.
+
+As far as the choice of the neighbourhood dimension, we adopt 10-fold cross-validation to select the optimal K. Input data are standardised prior to this process so to avoid to give more importance to variables with larger scales. The optimal value obtained is $K=23$.
+
+Also this model is in line with previous results, with an accuracy of 0.7572 and an AUC di 0.8192.
 
 ```{r, fig.width=10, fig.height=4, echo=FALSE}
 
