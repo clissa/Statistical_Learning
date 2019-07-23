@@ -1,10 +1,10 @@
 ##<a name="22_LDA" style="pointer-events: none; cursor: default;" ><font color="red"> 2.2. Linear Discriminant Analysis</font></a>
 
-L'analisi discriminante lineare (LDA) consiste in un tentativo alternativo di costruire una funzione discriminante. Infatti, riscrivendo $P(Y=g|X)$ come $\frac{f_g(x)\pi_g}{\sum_{l=1}^{G}f_l(x)\pi_l}$ si deduce che per stimare la probabilità di appartenenza ad una classe basta conoscere la funzione di densità della classe stessa (e la sua probabilità a priori). Partendo da questa formulazione del problema, l'analisi discriminante lineare consiste nell'assumere che le $f_g(x)$ siano gaussiane $p+1$-dimensionali con matrice di covarianza comune per tutte le classi. 
+The linear discriminant analysis (LDA) consists of an alternative solution for building a discriminant function. Indeed, rewriting $P(Y=g|X)$ as $\frac{f_g(x)\pi_g}{\sum_{l=1}^{G}f_l(x)\pi_l}$ it is possible to estimate the probability of each class based on its density function (and its prior probability). Starting from this formulation, the linear discriminant analysis assumes that the $f_g(x)$ are $p+1$-dimensional gaussian distribution with common covariance matrix.
 
-Una volta stimate le $f_g(x)$ dai dati campionari, è possibile dimostrare che la funzione discriminante associata ad ogni classe risulta essere: 
+Once the $f_g(x)$ are estimated based on sample data, it is then possible to show that the discriminant function associated to each category turns out to be:
 $$\delta_g(x)=x^{T}\Sigma^{-1}\mu_g -\frac{1}{2}\mu_g^T\Sigma^{-1}\mu_g+\log{\pi_g}$$
-Per classificare basta poi scegliere $g_*=argmax_g\delta_g(x)$
+Finally, in order to classify observations into one of the classes we simply pick $g_*=argmax_g\delta_g(x)$.
 
 **Risultati e plot distribuzione nella direzione discriminante**
 
@@ -21,21 +21,22 @@ subplot( canonical_variable, canonical_variable2) %>% layout(  title = 'Variabil
 
 
 
-Alternativamente, il modello LDA può essere ricavato come combinazione lineare dei regressori che meglio separa le modalità della variabile di output. In altre parole, si cerca $a^Tx$ tale che i gruppi siano internamente il più omogenei possibili e il più possibile distanti fra loro, i.e. varianza tra le classi ampia e varianza entro piccola. In formule: $$\phi_*=argmax_a\frac{a^TBa}{a^tWa}$$
-dove $B$ è la matrice di covarianza tra i gruppi e $W$ quella entro.
+Once the $f_g(x)$ are estimated based on sample data, it is then possible to show that the discriminant function associated to each category turns out to be:
+$$\delta_g(x)=x^{T}\Sigma^{-1}\mu_g -\frac{1}{2}\mu_g^T\Sigma^{-1}\mu_g+\log{\pi_g}$$
+Finally, in order to classify observations into one of the classes we simply pick $g_*=argmax_g\delta_g(x)$.
 
-Risolvendo questo problema di ottimizzazione si ricava:
+Solving this optimisation problem we get:
 $$(W^{-1}B-\phi I_{G x G})a=0$$
 
-Questo sistema di equazioni lineari omogenee ammette soluzioni non banali se e solo se $(W^{-1}B-\phi I)=0$, i.e. se $\phi$ è un autovalore di $W^{-1}B$ e $a$ contiene il relativo autovettore. Algebricamente, questo implica che ci sono al massimo $G-1$ soluzioni (rango di $W^{-1}B$) e, di conseguenza, $G-1$ direzioni discriminanti. Ora, siccome $\phi$ è proprio la quantità che vogliamo massimizzare, la funzione maggiormente discriminante sarà data dall'autovettore corrispondente all'autovalore maggiore di $W^{-1}B$ e corrisponderà alla superficie che meglio separa un gruppo da tutti gli altri.
+This is a homogeneous system of linear equations, so it admits non-trivial solutions if and only if $(W^{-1}B-\phi I)=0$, i.e. if $\phi$ is an eigenvalue of $W^{-1}B$ and $a$ contains the correspondent eigenvector. Algebraically, this implies that we have at most $G-1$ solutions, precisely as many as the rank of $W^{-1}B$. As a consequence, there are no more than $G-1$ discriminant directions. Since $\phi$ is exactly the quantity we want to maximise, the best discriminant function is given by the eigenvector corresponding to the biggest eigenvalue of $W^{-1}B$. Namely, it is the surface that better separates one class from all the others.
 
-Nel caso di 2 classi avremo un solo autovalore non nullo e, quindi, una sola direzione discriminante. Per capire meglio il risultato di questo approccio possiamo infine rappresentare le osservazioni rispetto alla combinazione lineare $a^Tx$, anche detta coordinata canonica, e sovraimporre il confine di decisione lineare.
+In the case of two categories, we have a single non-zero eigenvalue and, hence, a single discriminant direction. To understand better the results of this approach, the following plot displays the observations with respect to the linear combination  $a^Tx$, also called canonic coordinate, with the linear decision boundary superimposed.
 
 ```{r, fig.width=10, fig.height=4, echo=FALSE}
 file = "results/MODELING/CLASSIFICATION/lda_line_1_vs_0.Rdata"
 load( file )
 plot
 ```
-Come si nota, le due classi non risultano molto separate. Probabilmente le discrete performance del modello sono dovute al fatto che le 2 categorie siano sbilanciate e che questa funzione discriminante permetta di classificare correttamente la maggior parte delle osservazioni di classe 1 in eccesso.
+Notice that the two classes does not appear very separated. Probably, the quite decent performances of the model are due to the fact that the dataset is unbalanced and that the model correctly classifies the most represented categories. i.e. observations of class 1.
 
 **verifica che le due formulazioni siano uguali**
