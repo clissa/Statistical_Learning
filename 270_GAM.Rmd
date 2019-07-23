@@ -1,13 +1,13 @@
 ##<a name="27_GAM" style="pointer-events: none; cursor: default;" ><font color="red"> 2.7. Generalised Additive Models</font></a>
 
 
-I GAM sono modelli di tipo additivo che consentono di superare il vincolo di non linearità tramite l’introduzione di funzioni più flessibili nei regressori. Nel caso di classificazione binaria la forma assunta da un modello di tipo additivo è la seguente: 
+The GAMs are additive models that enable to overcome the linearity constraint trough the introduction of more flexible functions of the regressors. In the case of binary classification, we can write such a model as follows: 
 
 $$\log{ \biggl( \frac{P(Y=1|X)}{1-P(Y=1|X) }  \biggr)}=\alpha + \sum_{k=1}^p{f_k(X)}$$
 
+As far as our application is concerned, we consider smoothing splines as transformations of the input features. The optimal degrees of freedom for these functions are selected by 10-fold cross-validation, with a grid search in the range $[1,4]$. Best results are achieved with a value of 4.
 
-Nel caso preso in esame le funzioni utilizzate sono quelle di tipo smoothing spline e abbiamo fatto uso della 10-fold cross validation per selezionare il valore ottimale dei gradi di libertà utilizzando una ricerca a griglia con df da 1 a 4. Il valore selezionato è pari a 4.
-Possiamo osservare dai valori di accuratezza/test error che il modello così costruito presenta la miglior capacità predittiva rispetto agli altri finora analizzati con un’accuratezza dello 0.7658 confermata altresì dall’AUC di 0.8288.
+As we can see, the generalised additive model shows the best performance in terms of prediction, with an accuracy of 0.7658 and an AUC of 0.8288.
 
 ```{r, fig.width=10, fig.height=4, echo=FALSE}
 
